@@ -1,0 +1,32 @@
+<div>
+  <ul>
+    <% @simplified_events.each do |event| %>
+    <li>
+      <p>
+      <%= event["event_name"] %>
+      <%= event["web_description"] %>
+      <%= event["venue_name"] %>
+      <%= event["neighborhood"] %>
+      <%= event["street_address"] %>
+      <%= event["cross_street"] %>
+      <%= event["price"] %>
+      <p>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+
+<% @hourly_temperature["hourly_forecast"].first(6).each do |hour| %>
+  <p>
+  When it's <%= time = hour["FCTTIME"]["civil"] %> it will be <%= temp = hour["temp"]["english"] %> degrees farenheit.
+  </p>
+<% end %>
+</div>
+
+<footer>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://night.ly" data-text="Night.ly just planned an amazing night for me! Check it out!" data-size="large" data-hashtags="nightly">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+

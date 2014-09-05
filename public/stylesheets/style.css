@@ -1,0 +1,46 @@
+body {
+  text-align: center;
+  margin: auto;
+}
+
+header {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  float: left;
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 170px;
+}
+
+h3 {
+  font-family: 'Oswald', sans-serif;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 40px;
+  color: white;
+}
+
+button {
+  padding: 10px;
+  background: transparent;
+  border-color: black;
+}
+
+a:link{
+  text-decoration: none;
+  color: black;
+}
+
+a:visited{
+  color: black;
+}
+
+div {
+
+  border-radius: 10;
+  background-color: #000000;
+}
