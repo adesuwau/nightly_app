@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'securerandom'
 require 'httparty'
+require 'redis'
+require 'yelp'
 
 
 class App < Sinatra::Base
@@ -17,6 +19,10 @@ class App < Sinatra::Base
     GITHUB_CLIENT_SECRET = "4c1a5e68069ccff83c6cf62f7e206fad59009f23"
     GITHUB_CALLBACK_URL  = "http://127.0.0.1:9292/oauth_callback"
     WEATHERUG_KEY        = "1c6c34e969b99131"
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    $redis = Redis.new({:host => uri.host,
+                        :port => uri.port,
+                        :password => uri.password})
   end
 
   before do
@@ -55,7 +61,7 @@ get("/oauth_callback") do
 })
 session[:access_token] = response[:access_token]
   end
-  redirect to("/dashboard")
+  redirect to("/thanks")
 end
 
 get("/dashboard")do
@@ -67,10 +73,37 @@ get("/dashboard")do
 @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
 first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
 first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
+
+@client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
+                            consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
+                            token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
+                            token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
+params = { term: 'restaurant',
+         }
+@ny_yelp = @client.search("New York", params)
+@stringy_ny_yelp = @ny_yelp.to_json
+@parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
+
 render(:erb, :dashboard, :template =>:layout)
 end
 
-# get("/profile") do
-# render(:erb, :profile)
-# end
+get("/questionnaire")do
+render(:erb, :questionnaire, :template => :layout)
+end
+
+get("/thanks")do
+render(:erb, :thanks, :template => :layout)
+end
+
+get("/register")do
+redirect to("/questionnaire")
+end
+
+post("/profile/new") do
+# include array of member profile info
+redirect to("/thanks")
+end
+
+
+
 end

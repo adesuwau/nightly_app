@@ -1,0 +1,12 @@
+client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
+                            consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
+                            token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
+                            token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
+params = { term: 'restaurant',
+         }
+ny_yelp = client.search("New York", params)
+stringy_ny_yelp = ny_yelp.to_json
+parsed_ny_yelp = JSON.parse(stringy_ny_yelp)
+
+
+

@@ -1,6 +1,6 @@
 <div>
   <ul>
-    <% @simplified_events.first(5).each do |event| %>
+    <% @simplified_events.shuffle.first(5).each do |event| %>
     <li>
       <p><%= event["event_name"] %></p>
       <p><%= event["web_description"] %></p>
@@ -20,6 +20,18 @@
   <p>
   When it's <%= time = hour["FCTTIME"]["civil"] %> it will be <%= temp = hour["temp"]["english"] %> degrees farenheit.
   </p>
+<% end %>
+</div>
+
+<div>
+  <ul>
+  <% @parsed_ny_yelp["businesses"].shuffle.first(5).each do |spot| %>
+  <li>
+    <p><%= spot["name"] %></p>
+    <p><%= spot["snippet_text"] %></p>
+    <p><%= spot["display_phone"] %></p>
+  </li>
+  </ul>
 <% end %>
 </div>
 

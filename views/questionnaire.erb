@@ -1,0 +1,34 @@
+  <body>
+  <form method="POST" action="/profile/new">
+    <p>
+    <label for="name">name: </label>
+    <input type="text" name="sender_name" id="name" />
+    <br/><br/>
+    <label for="email">email: </label>
+    <input type="text" name="sender_email" id="email" />
+    <br/><br/>
+    <label for="user_city">city? </label>
+    <input type="text" name="user_city" id="user_city" />
+    <br/><br/>
+    <label for="location_city">state?(two letter abbreviation)</label>
+    <input type="text" name="user_state" id="user_state" />
+    <br/><br/>
+    <label>do you <span title="drink alcohol?">imbibe?</span>
+      &nbsp; &nbsp; <label for="liquor_yes">obvi.</label>
+      <input type="radio" name="user_drinks?" value="true"  id="liquor_yes" checked />
+      &nbsp; &nbsp; <label for="liquor_no">eww, never!</label>
+      <input type="radio" name="user_drinks?" value="false" id="liqour_no" />
+    </label>
+<!--     <br/><br/>
+    <label for="reason">Reason for contact:</label>
+    <select name="reason" id="reason">
+      <option value="Question" selected >Question</option>
+      <option value="Work Inquiry">Work Inquiry</option>
+      <option value="Bug/error report">Bug/error report</option>
+    </select> -->
+
+    <br/><br/>
+    <input type="submit" value="submit." />
+    <p>
+  </form>
+</body>
