@@ -1,16 +1,14 @@
 <div>
   <ul>
-    <% @simplified_events.each do |event| %>
+    <% @simplified_events.first(5).each do |event| %>
     <li>
-      <p>
-      <%= event["event_name"] %>
-      <%= event["web_description"] %>
-      <%= event["venue_name"] %>
-      <%= event["neighborhood"] %>
-      <%= event["street_address"] %>
-      <%= event["cross_street"] %>
-      <%= event["price"] %>
-      <p>
+      <p><%= event["event_name"] %></p>
+      <p><%= event["web_description"] %></p>
+      <p><%= event["venue_name"] %></p>
+      <p><%= event["neighborhood"] %></p>
+      <p><%= event["street_address"] %></p>
+      <p><%= event["cross_street"] %></p>
+      <p><%= event["price"] %></p>
     </li>
     <% end %>
   </ul>
