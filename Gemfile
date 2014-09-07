@@ -8,6 +8,9 @@ gem 'sinatra', '1.4.5'
 gem 'redis',  '3.1.0'
 gem 'httparty'
 gem 'yelp'
+gem 'fandango'
+gem 'twitter'
+gem 'instagram'
 
 
 group :development do

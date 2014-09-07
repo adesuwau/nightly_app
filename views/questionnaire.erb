@@ -1,3 +1,4 @@
+  <h2> profile info. </h2>
   <body>
   <form method="POST" action="/profile/new">
     <p>
@@ -13,20 +14,21 @@
     <label for="location_city">state?(two letter abbreviation)</label>
     <input type="text" name="user_state" id="user_state" />
     <br/><br/>
-    <label>do you <span title="drink alcohol?">imbibe?</span>
+    <label>do you <span title="drink alcohol?">imbibe?</span></label>
       &nbsp; &nbsp; <label for="liquor_yes">obvi.</label>
       <input type="radio" name="user_drinks?" value="true"  id="liquor_yes" checked />
       &nbsp; &nbsp; <label for="liquor_no">eww, never!</label>
       <input type="radio" name="user_drinks?" value="false" id="liqour_no" />
     </label>
-<!--     <br/><br/>
-    <label for="reason">Reason for contact:</label>
-    <select name="reason" id="reason">
-      <option value="Question" selected >Question</option>
-      <option value="Work Inquiry">Work Inquiry</option>
-      <option value="Bug/error report">Bug/error report</option>
-    </select> -->
-
+    <br/><br/>
+    <label for="feed_choice">select your feeds!</label>
+    <br/><br/>
+    <label for="movies">Fandango.<input type="checkbox" name="fandango" id="fandango" /></label>
+    <label for="restaurants">Yelp.<input type="checkbox" name="yelp" id="yelp" /></label>
+    <label for="nyt">New York Times Events.<input type="checkbox" name="nyt" id="nyt" /></label>
+    <label for="twitter">Twitter.<input type="checkbox" name="twitter" id="twitter" /></label>
+    <label for="instagram">Instagram.<input type="checkbox" name="instagram" id="instagram" /></label>
+    <label for="weather">Weather.<input type="checkbox" name="weather" id="weather" /></label>
     <br/><br/>
     <input type="submit" value="submit." />
     <p>

@@ -1,3 +1,4 @@
+<iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
 <div>
   <ul>
     <% @simplified_events.shuffle.first(5).each do |event| %>
@@ -28,12 +29,20 @@
   <% @parsed_ny_yelp["businesses"].shuffle.first(5).each do |spot| %>
   <li>
     <p><%= spot["name"] %></p>
+    <img src ="<%= spot["rating_img_url"] %>">
+    <br/>
+    <img src ="<%= spot["image_url"] %>">
     <p><%= spot["snippet_text"] %></p>
     <p><%= spot["display_phone"] %></p>
+  <% spot["categories"].each do |category| %>
+    <p><%= category[0] %></p>
+
   </li>
   </ul>
 <% end %>
+<% end %>
 </div>
+
 
 <footer>
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://night.ly" data-text="Night.ly just planned an amazing night for me! Check it out!" data-size="large" data-hashtags="nightly">Tweet</a>

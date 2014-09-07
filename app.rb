@@ -3,6 +3,8 @@ require 'securerandom'
 require 'httparty'
 require 'redis'
 require 'yelp'
+require 'twitter'
+require 'instagram'
 
 
 class App < Sinatra::Base
@@ -83,6 +85,20 @@ params = { term: 'restaurant',
 @ny_yelp = @client.search("New York", params)
 @stringy_ny_yelp = @ny_yelp.to_json
 @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
+
+
+# @client_two = Twitter::Streaming::Client.new do |config|
+#   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
+#   config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
+#   config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
+#   config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
+# end
+# @topics = ["coffee", "tea"]
+
+# Instagram.configure do |config|
+#   config.client_id = "2f02f71d330647768ec32f4da1ef1df6"
+#   config.client_secret = "b7014ef40e3c424e94e659632b5d866c"
+# end
 
 render(:erb, :dashboard, :template =>:layout)
 end
