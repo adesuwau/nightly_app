@@ -1,0 +1,30 @@
+<h2> <%= @profiles[@index][:username] %> </h2>
+<img src="<%= @profiles[@index][:user_img] %>">
+
+<ul>
+  <li>
+    <p>
+                user email:     <%= @profiles[@index][:email] %>
+                <br/>
+                user city:      <%= @profiles[@index][:user_city] %>
+                <br/>
+                user state:     <%= @profiles[@index][:user_state] %>
+                <br/>
+                user drinks?    <%= @profiles[@index][:user_drinks] %>
+                <br/>
+                fandango?       <%= @profiles[@index][:fandango] %>
+                <br/>
+                yelp?           <%= @profiles[@index][:yelp] %>
+                <br/>
+                NYTE?           <%= @profiles[@index][:NYTE] %>
+                <br/>
+                twitter?        <%= @profiles[@index][:twitter] %>
+                <br/>
+                instagram?      <%= @profiles[@index][:instagram] %>
+                <br/>
+                weather?         <%= @profiles[@index][:weather] %>
+    </p>
+  </li>
+</ul>
+
+<button><a href="/questionnaire"> edit profile.</a></button>

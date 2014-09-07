@@ -5,6 +5,7 @@ require 'redis'
 require 'yelp'
 require 'twitter'
 require 'instagram'
+require 'pry'
 
 
 class App < Sinatra::Base
@@ -25,6 +26,7 @@ class App < Sinatra::Base
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
                         :password => uri.password})
+  @@profiles = []
   end
 
   before do
@@ -67,24 +69,23 @@ session[:access_token] = response[:access_token]
 end
 
 get("/dashboard")do
-@events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
-@simplified_events = @events["results"]
+  @events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
+  @simplified_events = @events["results"]
 
-@city = "new_york"
-@state = "NY"
-@hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
-first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
-first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
+    @city = "new_york"
+    @state = "NY"
+    @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
+    first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
+    first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
 
-@client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
+      @client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
                             consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
                             token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
                             token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
-params = { term: 'restaurant',
-         }
-@ny_yelp = @client.search("New York", params)
-@stringy_ny_yelp = @ny_yelp.to_json
-@parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
+                            params = { term: 'restaurant'}
+      @ny_yelp = @client.search("New York", params)
+      @stringy_ny_yelp = @ny_yelp.to_json
+      @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
 
 
 # @client_two = Twitter::Streaming::Client.new do |config|
@@ -116,10 +117,39 @@ redirect to("/questionnaire")
 end
 
 post("/profile/new") do
-# include array of member profile info
-redirect to("/thanks")
+  profile_info = {
+  :username     => params[:user_name],
+  :email        => params[:user_email],
+  :user_city    => params[:user_city],
+  :user_state   => params[:user_state],
+  :user_img     => params[:user_img],
+  :user_drinks? => params[:user_drinks],
+  :fandango     => params[:fandango],
+  :yelp         => params[:yelp],
+  :NYTE         => params[:nyt],
+  :twitter      => params[:twitter],
+  :instagram    => params[:instagram],
+  :weather      => params[:weather]
+}
+  @@profiles.push(profile_info)
+    @@profiles.each_with_index do |profile, index|
+      $redis.set("profiles:#{index}", profile.to_json)
+    end
+      logger.info @@profiles
+        redirect to("/thanks")
 end
 
+get("/profiles")do
+@profiles = @@profiles
+render(:erb, :profiles, :template => :layout)
+# binding.pry
+end
+
+get("/profile/:id")do
+@profiles = @@profiles
+@index = params[:id].to_i - 1
+render(:erb, :user_profile, :template => :layout)
+end
 
 
 end

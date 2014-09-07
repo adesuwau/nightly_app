@@ -27,3 +27,20 @@ Instagram.configure do |config|
   config.client_secret = "b7014ef40e3c424e94e659632b5d866c"
 end
 
+
+
+def get_profile_from_redis(redis_id)
+    profile = JSON.parse($redis.get(redis_id))
+    profile
+  end
+
+$redis.keys('*profiles*').each do |key|
+      @@profiles << get_profile_from_redis(key)
+    end
+
+
+
+
+
+
+

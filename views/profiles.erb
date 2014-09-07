@@ -1,0 +1,32 @@
+<ul>
+    <% @profiles.each_with_index do |profile, index| %>
+        <li>
+            <p>
+                <%= index + 1 %>.
+                user name:      <%= profile[:username] %>
+                <br/>
+                user email:     <%= profile[:email] %>
+                <br/>
+                user city:      <%= profile[:user_city] %>
+                <br/>
+                user state:     <%= profile[:user_state] %>
+                <br/>
+                user drinks?    <%= profile[:user_drinks] %>
+                <br/>
+                fandango?       <%= profile[:fandango] %>
+                <br/>
+                yelp?           <%= profile[:yelp] %>
+                <br/>
+                NYTE?           <%= profile[:NYTE] %>
+                <br/>
+                twitter?        <%= profile[:twitter] %>
+                <br/>
+                instagram?      <%= profile[:instagram] %>
+                <br/>
+                weather         <%= profile[:weather] %>
+            </p>
+        </li>
+    <% end %>
+</ul>
+
+
