@@ -57,17 +57,19 @@ get("/oauth_callback") do
   code = params[:code]
   if session[:state] == params[:state]
     response = HTTParty.post("https://github.com/login/oauth/access_token", :body => {
-    client_id: GITHUB_CLIENT_ID,
-    client_secret: GITHUB_CLIENT_SECRET,
-    code: code,
-    redirect_uri: "http://127.0.0.1:9292/oauth_callback"
-},
-  :headers => {
-  "Accept" => "application/json"
-})
-session[:access_token] = response[:access_token]
+      client_id: GITHUB_CLIENT_ID,
+      client_secret: GITHUB_CLIENT_SECRET,
+      code: code,
+      redirect_uri: "http://127.0.0.1:9292/oauth_callback"
+    },
+      :headers => {
+      "Accept" => "application/json"
+    })
+    session["access_token"] = response["access_token"]
+    user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
+    binding.pry
   end
-  redirect to("/thanks")
+  redirect to("/profile/edit")
 end
 
 get("/feeds")do

@@ -39,6 +39,17 @@ $redis.keys('*profiles*').each do |key|
     end
 
 http://i.forbesimg.com/media/lists/people/beyonce-knowles_416x416.jpg
+http://searchednews.com/wp-content/uploads/2014/05/Rihanna-1.png
+http://ph.cdn.photos.upi.com/collection/upi/8e1fbca7069f92b044472f62b1acc435/Super-Bowl-XLII-New-York-Giants-vs-New-England-Patriots-in-Glendale-Arizona_2.jpg
+
+profiles_as_ruby_object = []
+$redis.keys.each do |key|
+profiles_as_ruby_object.push(JSON.parse($redis.get(key)))
+end
+
+
+
+
 
 
 
