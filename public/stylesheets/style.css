@@ -52,6 +52,7 @@ div {
 }
 
 #top_right {
+float: top;
 background: transparent;
 position: fixed; top;
 right: 25px;
@@ -60,15 +61,16 @@ z-index: 999
 }
 
 #top_left {
+position: fixed, top: 0;
 background: transparent;
-position: fixed; top;
-left: 25px;
-padding: 16px 10px;
-z-index: 999
+/*position: fixed; top;
+left: 0;
+padding: 0px 0px;
+z-index: 999*/
 }
 
-#one{
-position: relative;
+/*#one{
+position: fixed
 }
 
 #two{
@@ -82,3 +84,4 @@ position: relative;
 #four{
 position: relative;
 }
+*/
