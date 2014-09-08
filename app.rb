@@ -6,6 +6,8 @@ require 'yelp'
 require 'twitter'
 require 'instagram'
 require 'pry'
+require 'rss'
+require 'open-uri'
 
 
 class App < Sinatra::Base
@@ -74,9 +76,9 @@ get("/feeds")do
 
     @city = "new_york"
     @state = "NY"
-    @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
-    first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
-    first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
+      @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
+      first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
+      first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
 
       @client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
                             consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
@@ -91,8 +93,7 @@ get("/feeds")do
 @simplified_reviews = @reviews["results"]
 
 
-
-# @client_two = Twitter::Streaming::Client.new do |config|
+# @twitter_client              = Twitter::Streaming::Client.new do |config|
 #   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
 #   config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
 #   config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
@@ -105,19 +106,19 @@ get("/feeds")do
 #   config.client_secret = "b7014ef40e3c424e94e659632b5d866c"
 # end
 
-render(:erb, :dashboard, :template =>:layout)
+  render(:erb, :dashboard, :template =>:layout)
 end
 
 get("/profile/edit")do
-render(:erb, :questionnaire, :template => :layout)
+  render(:erb, :questionnaire, :template => :layout)
 end
 
 get("/thanks")do
-render(:erb, :thanks, :template => :layout)
+  render(:erb, :thanks, :template => :layout)
 end
 
 get("/register")do
-redirect to("/profile/edit")
+  redirect to("/profile/edit")
 end
 
 post("/profile/new") do
@@ -144,15 +145,15 @@ post("/profile/new") do
 end
 
 get("/profiles")do
-@profiles = @@profiles
-render(:erb, :profiles, :template => :layout)
+  @profiles = @@profiles
+  render(:erb, :profiles, :template => :layout)
 # binding.pry
 end
 
 get("/profile/:id")do
-@profiles = @@profiles
-@index = params[:id].to_i - 1
-render(:erb, :user_profile, :template => :layout)
+  @profiles = @@profiles
+  @index = params[:id].to_i - 1
+  render(:erb, :user_profile, :template => :layout)
 end
 
 
