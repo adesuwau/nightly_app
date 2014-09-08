@@ -68,7 +68,7 @@ session[:access_token] = response[:access_token]
   redirect to("/thanks")
 end
 
-get("/dashboard")do
+get("/feeds")do
   @events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
   @simplified_events = @events["results"]
 
@@ -87,6 +87,10 @@ get("/dashboard")do
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
 
+@reviews = HTTParty.get("http://api.nytimes.com/svc/movies/v2/reviews/search.json?critics-pick=Y&api-key=1e0225a5429d17924a7526f4a9454f9c:10:69766004")
+@simplified_reviews = @reviews["results"]
+
+
 
 # @client_two = Twitter::Streaming::Client.new do |config|
 #   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
@@ -104,7 +108,7 @@ get("/dashboard")do
 render(:erb, :dashboard, :template =>:layout)
 end
 
-get("/questionnaire")do
+get("/profile/edit")do
 render(:erb, :questionnaire, :template => :layout)
 end
 
@@ -113,7 +117,7 @@ render(:erb, :thanks, :template => :layout)
 end
 
 get("/register")do
-redirect to("/questionnaire")
+redirect to("/profile/edit")
 end
 
 post("/profile/new") do

@@ -38,6 +38,7 @@ $redis.keys('*profiles*').each do |key|
       @@profiles << get_profile_from_redis(key)
     end
 
+http://i.forbesimg.com/media/lists/people/beyonce-knowles_416x416.jpg
 
 
 

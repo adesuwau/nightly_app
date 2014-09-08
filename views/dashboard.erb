@@ -1,5 +1,8 @@
-<iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-<div>
+
+  <iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+
+
+<div id="one">
   <ul>
     <% @simplified_events.shuffle.first(5).each do |event| %>
     <li>
@@ -15,8 +18,7 @@
   </ul>
 </div>
 
-<div>
-
+<div id="two">
 <% @hourly_temperature["hourly_forecast"].first(6).each do |hour| %>
   <p>
   When it's <%= time = hour["FCTTIME"]["civil"] %> it will be <%= temp = hour["temp"]["english"] %> degrees farenheit.
@@ -24,7 +26,7 @@
 <% end %>
 </div>
 
-<div>
+<div id="three">
   <ul>
   <% @parsed_ny_yelp["businesses"].shuffle.first(5).each do |spot| %>
   <li>
@@ -43,6 +45,25 @@
 <% end %>
 </div>
 
+<div>
+  <ul>
+  <% @simplified_reviews.shuffle.first(5).each do |movie| %>
+  <li>
+    <p>
+  <%= movie["display_title"] %>
+  <br/>
+  <%= movie["headline"] %>
+  <br/>
+  <img src ="<%= movie["multimedia"]["resource"]["src"] %>">
+  <br/>
+  <%= movie["summary_short"] %>
+  <br/>
+  <%= movie["link"]["url"] %>
+  </p>
+</li>
+<% end %>
+</ul>
+</div>
 
 <footer>
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://night.ly" data-text="Night.ly just planned an amazing night for me! Check it out!" data-size="large" data-hashtags="nightly">Tweet</a>
