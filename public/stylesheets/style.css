@@ -50,3 +50,35 @@ div {
   border-radius: 10;
   background-color: #000000;
 }
+
+#top_right {
+background: transparent;
+position: fixed; top;
+right: 25px;
+padding: 16px 10px;
+z-index: 999
+}
+
+#top_left {
+background: transparent;
+position: fixed; top;
+left: 25px;
+padding: 16px 10px;
+z-index: 999
+}
+
+#one{
+position: relative;
+}
+
+#two{
+position: relative;
+}
+
+#three{
+position: relative;
+}
+
+#four{
+position: relative;
+}

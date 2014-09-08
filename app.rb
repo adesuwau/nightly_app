@@ -67,7 +67,7 @@ get("/oauth_callback") do
     })
     session["access_token"] = response["access_token"]
     user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
-    binding.pry
+    # binding.pry
   end
   redirect to("/profile/edit")
 end
@@ -95,13 +95,13 @@ get("/feeds")do
 @simplified_reviews = @reviews["results"]
 
 
-# @twitter_client              = Twitter::Streaming::Client.new do |config|
-#   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
-#   config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
-#   config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
-#   config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
-# end
-# @topics = ["coffee", "tea"]
+@twitter_client              = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
+  config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
+  # config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
+  # config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
+end
+@tweets = @twitter_client.search
 
 # Instagram.configure do |config|
 #   config.client_id = "2f02f71d330647768ec32f4da1ef1df6"

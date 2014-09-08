@@ -1,5 +1,12 @@
+<div id="top_right">
+<% if session["access_token"] %>
+<p><a href="/logout">logout.</a></p>
+<% end %>
+</div>
 
-  <iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+<div id="top_left">
+<iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+</div>
 
 
 <div id="one">
@@ -69,4 +76,5 @@
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
 </footer>
+
 
