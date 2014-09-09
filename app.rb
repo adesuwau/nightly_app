@@ -30,7 +30,7 @@ class App < Sinatra::Base
                         :password => uri.password})
     CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
     $redis.flushdb
-    @@profiles = []
+    @@profiles    = []
   end
 
   before do
@@ -80,9 +80,9 @@ get "/oauth/connect" do
   redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
 end
 
-
-
 get("/feeds")do
+  @user_city   = params[:user_city]
+  @user_state  = params[:user_state]
 
 @user_one = JSON.parse($redis["profiles:0"])
 #################
@@ -96,8 +96,8 @@ get("/feeds")do
 # Weather Underground
 #####################
 
-    @city = "new_york"
-    @state = "NY"
+    @city = @user_city.to_s.gsub(" ", "_")
+    @state = @user_state
       @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
@@ -105,13 +105,13 @@ get("/feeds")do
 ###############
 # Yelp
 ###############
-
+@yelp_city = @user_city
       @client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
                             consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
                             token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
                             token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
                             params = { term: 'restaurant'}
-      @ny_yelp = @client.search("New York", params)
+      @ny_yelp = @client.search("#{yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
 
@@ -125,6 +125,7 @@ get("/feeds")do
 ##############
 # Twitter
 ##############
+@twitter_city = @user_city
 
 @twitter_client              = Twitter::REST::Client.new do |config|
   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
@@ -132,7 +133,7 @@ get("/feeds")do
   # config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
   # config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
 end
-@tweets = @twitter_client.search("nightlife, nyc", :result_type => "recent").take(5).collect do |tweet|
+@tweets = @twitter_client.search("nightlife, #{@twitter_city}", :result_type => "recent").take(5).collect do |tweet|
       {content: "#{tweet.user.screen_name}: #{tweet.text}", url: "#{tweet.url}"}
     end
 ###############
