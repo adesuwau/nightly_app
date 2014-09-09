@@ -1,15 +1,27 @@
-<div id="top_right">
-<% if session["access_token"] %>
-<p><a href="/logout">logout.</a></p>
-<% end %>
-</div>
+<header>
+<a href="/"><h2>night.ly</h2></a>
+<table style="float:right; margin-top:-150px;">
+  <thead>
+    <th>
+      <% if session["access_token"] %>
+        <a href="/logout"><p>logout.</p></a>
+      </th>
+      <th>
+        <a href="/profile/1"><p>profile.</p></a>
+      </th>
+    <% end %>
+  </thead>
+</table>
+</header>
 
-<div id="top_left">
-<iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-</div>
+<br/>
+<br/>
+<br/>
 
+<body>
 <% if @user_one["NYTE"] %>
 <div id="one">
+  <article>New York Times: Events.</article>
   <ul>
     <% @simplified_events.shuffle.first(5).each do |event| %>
     <li>
@@ -28,6 +40,7 @@
 
 <% if @user_one["weather"] %>
 <div id="two">
+  <article>Weather.</article>
   <% @hourly_temperature["hourly_forecast"].first(5).each do |hour| %>
     <p>
       <img src="<%= hour["icon_url"] %>">
@@ -40,6 +53,7 @@
 
 <% if @user_one["yelp"] %>
 <div id="three">
+  <article>Yelp.</article>
   <ul>
     <% @parsed_ny_yelp["businesses"].shuffle.first(5).each do |spot| %>
       <li>
@@ -59,7 +73,9 @@
 <% end %>
 
 <% if @user_one["NYTMR"] %>
+
 <div id="four">
+  <article>New York Times: Movie Reviews</article>
   <ul>
   <% @simplified_reviews.shuffle.first(5).each do |movie| %>
   <li>
@@ -82,6 +98,7 @@
 
 <% if @user_one["twitter"] %>
 <div id="five">
+  <article>Twitter.</article>
   <ul>
 <% @tweets.each do |tweet| %>
 <li>
@@ -93,7 +110,9 @@
 <% end %>
 
 <% if @user_one["instagram"] %>
+
 <div id="six">
+  <article>Instagram.</article>
 <ul>
   <li>
 <%= @ig_flicks %>
@@ -101,11 +120,10 @@
 </ul>
 </div>
 <% end %>
-
+</body>
 <footer>
   <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://night.ly" data-text="Night.ly just planned an amazing night for me! Check it out!" data-size="large" data-hashtags="nightly">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
 </footer>
-
 

@@ -1,13 +1,11 @@
-body {
-  text-align: center;
-  margin: auto;
-}
+header {
+  background: transparent;
+  width: 100%;
+  margin-top: -75px;
+  margin-bottom: -60px;
+  text-align: left;
 
-/*header {
-  font-family: 'Oswald', sans-serif;
-  font-size: 20px;
-  float: left;
-}*/
+}
 
 h1 {
   font-family: 'Oswald', sans-serif;
@@ -24,10 +22,22 @@ h3 {
   font-size: 40px;
 }
 
+body {
+  text-align: center;
+  margin: auto;
+  position: relative;
+}
+
 p {
   font-family: 'Cabin', sans-serif;
   font-size: 18px;
   color: white;
+}
+
+article{
+font-family: 'Pacifico', cursive;
+text-align: left;
+color: white;
 }
 
 button {
@@ -47,41 +57,8 @@ a:visited{
 
 div {
 
-  border-radius: 10;
+  border-radius: 20px;
   background-color: #000000;
 }
 
-#top_right {
-float: top;
-background: transparent;
-position: fixed; top;
-right: 25px;
-padding: 16px 10px;
-z-index: 999
-}
 
-#top_left {
-position: fixed, top: 0;
-background: transparent;
-/*position: fixed; top;
-left: 0;
-padding: 0px 0px;
-z-index: 999*/
-}
-
-/*#one{
-position: fixed
-}
-
-#two{
-position: relative;
-}
-
-#three{
-position: relative;
-}
-
-#four{
-position: relative;
-}
-*/
