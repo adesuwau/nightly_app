@@ -19,7 +19,7 @@
 <br/>
 
 <body>
-<% if @user_one["NYTE"] %>
+<% if @user["NYTE"] %>
 <div id="one">
   &nbsp;<article>New York Times: Events.</article>
   <ul>
@@ -38,7 +38,7 @@
 </div>
 <% end %>
 
-<% if @user_one["weather"] %>
+<% if @user["weather"] %>
 <div id="two">
   <article>Weather.</article>
   <% @hourly_temperature["hourly_forecast"].first(5).each do |hour| %>
@@ -51,7 +51,7 @@
 <% end %>
 
 
-<% if @user_one["yelp"] %>
+<% if @user["yelp"] %>
 <div id="three">
   <article>Yelp.</article>
   <ul>
@@ -72,7 +72,7 @@
 </div>
 <% end %>
 
-<% if @user_one["NYTMR"] %>
+<% if @user["NYTMR"] %>
 
 <div id="four">
   <article>New York Times: Movie Reviews</article>
@@ -94,7 +94,7 @@
 </div>
 <% end %>
 
-<% if @user_one["twitter"] %>
+<% if @user["twitter"] %>
 <div id="five">
   <article>Twitter.</article>
   <ul>
@@ -107,7 +107,7 @@
 </div>
 <% end %>
 
-<% if @user_one["instagram"] %>
+<% if @user["instagram"] %>
 
 <div id="six">
   <article>Instagram.</article>

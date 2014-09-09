@@ -70,9 +70,11 @@ get("/oauth_callback") do
     session["access_token"] = response["access_token"]
     user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
     # binding.pry
+
+  session["username"] = user_info_response["login"]
 #     response_two = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
 #     session[:access_token] = response_two.access_token
- end
+  end
   redirect to("/profile/edit")
 end
 
@@ -81,23 +83,23 @@ get "/oauth/connect" do
 end
 
 get("/feeds")do
-  @user_city   = params[:user_city]
-  @user_state  = params[:user_state]
-
-@user_one = JSON.parse($redis["profiles:0"])
-#################
-# NYTimes Events
-#################
+  @user = JSON.parse($redis["profiles:#{session["username"]}"])
+  @user_city  = @user["user_city"]
+  @user_state = @user["user_state"]
+  #################
+  # NYTimes Events
+  #################
 
   @events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
   @simplified_events = @events["results"]
 
-#####################
-# Weather Underground
-#####################
+  # => ####################
+  # Weather Underground
+  #####################
 
     @city = @user_city.to_s.gsub(" ", "_")
     @state = @user_state
+    # binding.pry
       @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
@@ -111,7 +113,7 @@ get("/feeds")do
                             token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
                             token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
                             params = { term: 'restaurant'}
-      @ny_yelp = @client.search("#{yelp_city}", params)
+      @ny_yelp = @client.search("#{@yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
 
@@ -163,32 +165,33 @@ end
 
 post("/profile/new") do
   profile_info = {
-  :username     => params[:user_name],
-  :email        => params[:user_email],
-  :user_city    => params[:user_city],
-  :user_state   => params[:user_state],
-  :user_img     => params[:user_img],
-  :user_drinks? => params[:user_drinks],
-  :fandango     => params[:fandango],
-  :yelp         => params[:yelp],
-  :NYTE         => params[:nyte],
-  :NYTMR        => params[:nytmr],
-  :twitter      => params[:twitter],
-  :instagram    => params[:instagram],
-  :weather      => params[:weather]
-}
+    :username     => params[:user_name],
+    :email        => params[:user_email],
+    :user_city    => params[:user_city],
+    :user_state   => params[:user_state],
+    :user_img     => params[:user_img],
+    :user_drinks? => params[:user_drinks],
+    :fandango     => params[:fandango],
+    :yelp         => params[:yelp],
+    :NYTE         => params[:nyte],
+    :NYTMR        => params[:nytmr],
+    :twitter      => params[:twitter],
+    :instagram    => params[:instagram],
+    :weather      => params[:weather]
+  }
   @@profiles.push(profile_info)
-    @@profiles.each_with_index do |profile, index|
-      $redis.set("profiles:#{index}", profile.to_json)
-    end
-      logger.info @@profiles
-        redirect to("/thanks")
+  @@profiles.each  do |profile|
+    $redis.set("profiles:#{session['username']}", profile.to_json)
+  end
+  logger.info @@profiles
+  # binding.pry
+  redirect to("/thanks")
 end
 
 get("/profiles")do
   @profiles = @@profiles
   render(:erb, :profiles, :template => :layout)
-binding.pry
+# binding.pry
 end
 
 get("/profile/:id")do
