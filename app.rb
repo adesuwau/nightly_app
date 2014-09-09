@@ -29,7 +29,8 @@ class App < Sinatra::Base
                         :port => uri.port,
                         :password => uri.password})
     CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
-  @@profiles = []
+    $redis.flushdb
+    @@profiles = []
   end
 
   before do
@@ -82,6 +83,8 @@ end
 
 
 get("/feeds")do
+
+@user_one = JSON.parse($redis["profiles:0"])
 #################
 # NYTimes Events
 #################
@@ -167,7 +170,8 @@ post("/profile/new") do
   :user_drinks? => params[:user_drinks],
   :fandango     => params[:fandango],
   :yelp         => params[:yelp],
-  :NYTE         => params[:nyt],
+  :NYTE         => params[:nyte],
+  :NYTMR        => params[:nytmr],
   :twitter      => params[:twitter],
   :instagram    => params[:instagram],
   :weather      => params[:weather]
@@ -183,7 +187,7 @@ end
 get("/profiles")do
   @profiles = @@profiles
   render(:erb, :profiles, :template => :layout)
-# binding.pry
+binding.pry
 end
 
 get("/profile/:id")do

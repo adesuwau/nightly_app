@@ -8,7 +8,7 @@
 <iframe src="https://embed.spotify.com/?uri=spotify:user:miiszade:playlist:3sSrHOVPy7BgcIIetPh95b" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
-
+<% if @user_one["NYTE"] %>
 <div id="one">
   <ul>
     <% @simplified_events.shuffle.first(5).each do |event| %>
@@ -24,16 +24,21 @@
     <% end %>
   </ul>
 </div>
+<% end %>
 
+<% if @user_one["weather"] %>
 <div id="two">
-  <% @hourly_temperature["hourly_forecast"].first(6).each do |hour| %>
+  <% @hourly_temperature["hourly_forecast"].first(5).each do |hour| %>
     <p>
       <img src="<%= hour["icon_url"] %>">
       When it's <%= time = hour["FCTTIME"]["civil"] %> it will be <%= temp = hour["temp"]["english"] %> degrees farenheit.
     </p>
   <% end %>
 </div>
+<% end %>
 
+
+<% if @user_one["yelp"] %>
 <div id="three">
   <ul>
     <% @parsed_ny_yelp["businesses"].shuffle.first(5).each do |spot| %>
@@ -51,7 +56,9 @@
         <% end %>
           <% end %>
 </div>
+<% end %>
 
+<% if @user_one["NYTMR"] %>
 <div id="four">
   <ul>
   <% @simplified_reviews.shuffle.first(5).each do |movie| %>
@@ -71,7 +78,9 @@
 <% end %>
 </ul>
 </div>
+<% end %>
 
+<% if @user_one["twitter"] %>
 <div id="five">
   <ul>
 <% @tweets.each do |tweet| %>
@@ -81,7 +90,9 @@
 <% end %>
 </ul>
 </div>
+<% end %>
 
+<% if @user_one["instagram"] %>
 <div id="six">
 <ul>
   <li>
@@ -89,6 +100,7 @@
   </li>
 </ul>
 </div>
+<% end %>
 
 <footer>
   <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://night.ly" data-text="Night.ly just planned an amazing night for me! Check it out!" data-size="large" data-hashtags="nightly">Tweet</a>
