@@ -202,8 +202,11 @@ end
 
 get("/logout") do
 session["access_token"] = nil
-redirect to("/")
+redirect to("/bye")
 end
 
+get("/bye")do
+render(:erb, :bye, :template => :layout)
+end
 
 end
