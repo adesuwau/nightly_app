@@ -133,7 +133,7 @@ get("/feeds")do
   # config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
 end
 @tweets = @twitter_client.search("nightlife, nyc", :result_type => "recent").take(5).collect do |tweet|
-      {content: "#{tweet.user.screen_name}: #{tweet.text}"}
+      {content: "#{tweet.user.screen_name}: #{tweet.text}", url: "#{tweet.url}"}
     end
 ###############
 # Instagram
@@ -194,6 +194,11 @@ get("/profile/:id")do
   @profiles = @@profiles
   @index = params[:id].to_i - 1
   render(:erb, :user_profile, :template => :layout)
+end
+
+get("/logout") do
+session["access_token"] = nil
+redirect to("/")
 end
 
 
