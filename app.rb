@@ -68,7 +68,7 @@ get("/oauth_callback") do
     session["access_token"] = response["access_token"]
     @@user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
 
-  session["username"] = user_info_response["login"]
+  session["username"] = @@user_info_response["login"]
 #     response_two = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
 #     session[:access_token] = response_two.access_token
   end
