@@ -34,6 +34,11 @@ p {
   color: white;
 }
 
+p.great{
+font-family: 'Rock Salt', cursive;
+font-size: 20px;
+}
+
 article{
 font-family: 'Pacifico', cursive;
 text-align: left;

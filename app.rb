@@ -27,7 +27,7 @@ class App < Sinatra::Base
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
                         :password => uri.password})
-    CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
+    CALLBACK_URL = "http://frozen-crag-8244.herokuapp.com/oauth_callback"
     @@profiles    = []
   end
 
@@ -60,7 +60,7 @@ get("/oauth_callback") do
       client_id: GITHUB_CLIENT_ID,
       client_secret: GITHUB_CLIENT_SECRET,
       code: code,
-      redirect_uri: "http://127.0.0.1:9292/oauth_callback"
+      redirect_uri: "http://frozen-crag-8244.herokuapp.com/oauth_callback"
     },
       :headers => {
       "Accept" => "application/json"
