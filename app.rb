@@ -5,7 +5,6 @@ require 'redis'
 require 'yelp'
 require 'twitter'
 require 'instagram'
-require 'pry'
 require 'rss'
 require 'open-uri'
 
@@ -29,7 +28,6 @@ class App < Sinatra::Base
                         :port => uri.port,
                         :password => uri.password})
     CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
-    $redis.flushdb
     @@profiles    = []
   end
 
@@ -69,7 +67,6 @@ get("/oauth_callback") do
     })
     session["access_token"] = response["access_token"]
     user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
-    # binding.pry
 
   session["username"] = user_info_response["login"]
 #     response_two = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
@@ -94,13 +91,12 @@ get("/feeds")do
   @events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
   @simplified_events = @events["results"]
 
-  # => ####################
+  #####################
   # Weather Underground
   #####################
 
     @city = @user_city.to_s.gsub(" ", "_")
     @state = @user_state
-    # binding.pry
       @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
@@ -185,22 +181,17 @@ post("/profile/new") do
     $redis.set("profiles:#{session['username']}", profile.to_json)
   end
   logger.info @@profiles
-  # binding.pry
   redirect to("/thanks")
 end
 
 get("/profiles")do
   @profiles = @@profiles
   render(:erb, :profiles, :template => :layout)
-# binding.pry
 end
 
 get("/profile/:id")do
   @user = JSON.parse($redis["profiles:#{session["username"]}"])
   params[:id] = @user["username"]
-  # @profiles = @@profiles
-  # @index = params[:id].to_i - 1
-  # binding.pry
   render(:erb, :user_profile, :template => :layout)
 end
 
