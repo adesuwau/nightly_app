@@ -1,0 +1,16 @@
+<div id="one">
+  &nbsp;<article>New York Times: Events.</article>
+  <ul>
+    <% @simplified_events.shuffle.first(5).each do |event| %>
+    <li>
+      <a href="<%= event["event_detail_url"] %>"><p><%= event["event_name"] %></p></a>
+      <p><%= event["web_description"] %></p>
+      <p><%= event["venue_name"] %></p>
+      <p><%= event["neighborhood"] %></p>
+      <p><%= event["street_address"] %></p>
+      <p><%= event["cross_street"] %></p>
+      <p><%= event["price"] %></p>
+    </li>
+    <% end %>
+  </ul>
+</div>

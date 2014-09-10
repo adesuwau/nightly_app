@@ -36,7 +36,7 @@ p {
 
 p.great{
 font-family: 'Rock Salt', cursive;
-font-size: 35px;
+font-size: 45px;
 }
 
 p.bigger{
@@ -77,4 +77,8 @@ img{
 
 #profile{
   font-size: 20px;
+}
+
+p.black{
+  color: black;
 }
