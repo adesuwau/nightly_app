@@ -66,7 +66,7 @@ get("/oauth_callback") do
       "Accept" => "application/json"
     })
     session["access_token"] = response["access_token"]
-    user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
+    @@user_info_response = HTTParty.get("https://api.github.com/user?access_token=#{session['access_token']}", headers: { "User-Agent" => "Rat Store Example" })
 
   session["username"] = user_info_response["login"]
 #     response_two = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
@@ -166,7 +166,6 @@ post("/profile/new") do
     :email        => params[:user_email],
     :user_city    => params[:user_city],
     :user_state   => params[:user_state],
-    :user_img     => params[:user_img],
     :user_drinks? => params[:user_drinks],
     :fandango     => params[:fandango],
     :yelp         => params[:yelp],
@@ -192,6 +191,7 @@ end
 get("/profile/:id")do
   @user = JSON.parse($redis["profiles:#{session["username"]}"])
   params[:id] = @user["username"]
+  @user_info_response = @@user_info_response
   render(:erb, :user_profile, :template => :layout)
 end
 
