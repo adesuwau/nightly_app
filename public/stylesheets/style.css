@@ -36,7 +36,12 @@ p {
 
 p.great{
 font-family: 'Rock Salt', cursive;
-font-size: 20px;
+font-size: 35px;
+}
+
+p.bigger{
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
 }
 
 article{
