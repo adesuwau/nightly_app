@@ -84,6 +84,7 @@ end
 
 get("/feeds")do
   @user = JSON.parse($redis["profiles:#{session["username"]}"])
+  @profile = "/profile/" + "#{session["username"]}"
   @user_city  = @user["user_city"]
   @user_state = @user["user_state"]
   #################
@@ -165,7 +166,7 @@ end
 
 post("/profile/new") do
   profile_info = {
-    :username     => params[:user_name],
+    :nickname     => params[:nickname],
     :email        => params[:user_email],
     :user_city    => params[:user_city],
     :user_state   => params[:user_state],
@@ -195,8 +196,11 @@ get("/profiles")do
 end
 
 get("/profile/:id")do
-  @profiles = @@profiles
-  @index = params[:id].to_i - 1
+  @user = JSON.parse($redis["profiles:#{session["username"]}"])
+  params[:id] = @user["username"]
+  # @profiles = @@profiles
+  # @index = params[:id].to_i - 1
+  # binding.pry
   render(:erb, :user_profile, :template => :layout)
 end
 

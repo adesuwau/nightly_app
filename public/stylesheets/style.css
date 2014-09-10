@@ -29,7 +29,7 @@ body {
 }
 
 p {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Questrial', sans-serif;
   font-size: 18px;
   color: white;
 }
@@ -61,4 +61,10 @@ div {
   background-color: #000000;
 }
 
+img{
+  border-radius: 10px;
+}
 
+#profile{
+  font-size: 20px;
+}

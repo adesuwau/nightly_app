@@ -1,32 +1,35 @@
-<h2> <%= @profiles[@index][:username] %> </h2>
-<img src="<%= @profiles[@index][:user_img] %>">
-
+<h2><%= session["username"] %> </h2>
+<p> aka </p>
+<h3> <%= @user["nickname"] %> </h3>
+<img src="<%= @user["user_img"] %>">
+<div id="profile">
 <ul>
   <li>
     <p>
-                user email:     <%= @profiles[@index][:email] %>
+                user email:     <%= @user["email"] %>
                 <br/>
-                user city:      <%= @profiles[@index][:user_city] %>
+                user city:      <%= @user["user_city"] %>
                 <br/>
-                user state:     <%= @profiles[@index][:user_state] %>
+                user state:     <%= @user["user_state"] %>
                 <br/>
-                user drinks?    <%= @profiles[@index][:user_drinks] %>
+                user drinks?    <%= @user["user_drinks"] %>
                 <br/>
-                fandango?       <%= @profiles[@index][:fandango] %>
+                fandango?       <%= @user["fandango"] %>
                 <br/>
-                yelp?           <%= @profiles[@index][:yelp] %>
+                yelp?           <%= @user["yelp"] %>
                 <br/>
-                NYTE?           <%= @profiles[@index][:NYTE] %>
+                NYTE?           <%= @user["NYTE"] %>
                 <br/>
-                NYTMR?           <%= @profiles[@index][:NYTMR] %>
+                NYTMR?           <%= @user["NYTMR"] %>
                 <br/>
-                twitter?        <%= @profiles[@index][:twitter] %>
+                twitter?        <%= @user["twitter"] %>
                 <br/>
-                instagram?      <%= @profiles[@index][:instagram] %>
+                instagram?      <%= @user["instagram"] %>
                 <br/>
-                weather?         <%= @profiles[@index][:weather] %>
+                weather?         <%= @user["weather"] %>
     </p>
   </li>
 </ul>
-
+</div>
 <button><a href="/profile/edit"> edit profile.</a></button>
+<button><a href="/feeds">return to feeds.</a></button>

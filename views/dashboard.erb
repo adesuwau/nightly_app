@@ -4,7 +4,7 @@
   <thead>
     <th>
       <% if session["access_token"] %>
-      <a href="/profile/1"><p>profile.&nbsp;//</p></a>
+      <a href="<%= @profile %>"><p>profile.&nbsp;//</p></a>
       </th>
       <th>
       <a href="/logout"><p>logout.</p></a>
