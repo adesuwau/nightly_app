@@ -1,19 +1,55 @@
-Night.ly is a custom dashboard for all things nightlife in your city!
+#night.ly
 
-APIs Used:
+**night.ly** *is a custom dashboard for all things nightlife in your city!*
 
-New York Times Events: Events located in Manhattan
-Fandango: Movie showtimes near your location
-Twitter: Tweets showing whats going on in your city in real time!
-Instagram: Photo feed searched by the hashtag #nightlife in your city!
-Weather: Informs the user of the temperature in 6 hour blocks.
-Yelp: Best restaurants in your vicinity.
+WDI Guildenstern, Week Five - Project One
 
-Gems Used:
-HTTParty
-Twitter
-Yelp
-Instagram
-Redis
+Developed by: *Adesuwa Ugbogbo*
+
+##Screenshots:
+
+<img width= 600px src="http://i57.tinypic.com/e6dt3s.png">
+<img width= 600px src="http://i57.tinypic.com/1z2fuc9.png">
+<img width= 600px src="http://i60.tinypic.com/14w9m3n.png">
 
 
+##Tech Used:
+APIs-
+
+**New York Times Events**: Cultural Events located in Manhattan
+
+**New York Times Movie Reviews**: Film reviews from top critics
+
+**Twitter**: Tweets showing whats going on in your city in real time!
+
+**Weather**: Informs the user of the temperature in 6 hour blocks.
+
+**Yelp**: Best restaurants in your vicinity.
+
+**Fandango**: Movie times.
+
+**Instagram**: Photos depicting nightlife in your city in real time.
+
+**Meetup**: *Coming Soon*
+
+Languages-
+
+**Ruby v. 2.1.2**
+
+**Rspec**
+
+**Capybara**
+
+Gems-
+
+**HTTParty**
+
+**Twitter**
+
+**Yelp**
+
+**Redis**
+
+**Fandango**
+
+**Instagram**
