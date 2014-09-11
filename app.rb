@@ -19,8 +19,8 @@ class App < Sinatra::Base
     enable :logging
     enable :method_override
     enable :sessions
-    GITHUB_CLIENT_ID     = "6b7eb4b33d119b28399c"
-    GITHUB_CLIENT_SECRET = "4c1a5e68069ccff83c6cf62f7e206fad59009f23"
+    GITHUB_CLIENT_ID     = ENV['GITHUB_CLIENT_ID']
+    GITHUB_CLIENT_SECRET = ENV['GITHUB_CLIENT_SECRET']
     GITHUB_CALLBACK_URL  = "http://frozen-crag-8244.herokuapp.com/oauth_callback"
     WEATHERUG_KEY        = "1c6c34e969b99131"
     uri = URI.parse(ENV["REDISTOGO_URL"])
@@ -87,20 +87,17 @@ get("/feeds")do
   #################
   # NYTimes Events
   #################
-
   @events = HTTParty.get("http://api.nytimes.com/svc/events/v2/listings.json?filters=borough:Manhattan&api-key=d580e2fba62b85adae01dbb42834ddab:6:69766004")
   @simplified_events = @events["results"]
 
   #####################
   # Weather Underground
   #####################
-
     @city = @user_city.to_s.gsub(" ", "_")
     @state = @user_state
       @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
-
 ###############
 # Yelp
 ###############
@@ -113,19 +110,15 @@ get("/feeds")do
       @ny_yelp = @client.search("#{@yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
-
 #######################
 # NYTimes Movie Reviews
 #######################
-
 @reviews = HTTParty.get("http://api.nytimes.com/svc/movies/v2/reviews/search.json?critics-pick=Y&api-key=1e0225a5429d17924a7526f4a9454f9c:10:69766004")
 @simplified_reviews = @reviews["results"]
-
 ##############
 # Twitter
 ##############
 @twitter_city = @user_city
-
 @twitter_client              = Twitter::REST::Client.new do |config|
   config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
   config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
