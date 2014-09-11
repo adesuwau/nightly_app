@@ -132,8 +132,8 @@ end
 # Instagram
 ###############
     Instagram.configure do |config|
-      config.client_id = "2f02f71d330647768ec32f4da1ef1df6"
-      config.client_secret = "b7014ef40e3c424e94e659632b5d866c"
+      config.client_id = ENV['INSTAGRAM_CLIENT_ID']
+      config.client_secret = ENV['INSTAGRAM_CLIENT_SECRET']
     end
 
 @ig_flicks = HTTParty.get("https://api.instagram.com/v1/media/popular?access_token=#{session['access_token']}")
