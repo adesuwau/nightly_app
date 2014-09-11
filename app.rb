@@ -102,10 +102,10 @@ get("/feeds")do
 # Yelp
 ###############
 @yelp_city = @user_city
-      @client = Yelp::Client.new({ consumer_key: "Tk51e10C3NlC-bpMio_orA",
-                            consumer_secret: "jR0kGr2xOX5GMuWZnYIlF_KGeOk",
-                            token: "5rfVNLDITMRQ8JMOw1_7ULMTZ4lQW7UB",
-                            token_secret: "Fm42MAHK-l_gvOKpKNCy1HYjjq8" })
+      @client = Yelp::Client.new({ consumer_key: ENV['YELP_CONSUMER_KEY'],
+                            consumer_secret: ENV['YELP_CONSUMER_SECRET'],
+                            token: ENV['YELP_TOKEN'],
+                            token_secret: ENV['YELP_TOKEN_SECRET'] })
                             params = { term: 'restaurant'}
       @ny_yelp = @client.search("#{@yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
