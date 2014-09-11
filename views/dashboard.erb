@@ -122,7 +122,7 @@
 <div id="seven">
   <article>Meetup.</article>
   <ul>
-    <% @simplified_meetup_hash.sample.first(5).each do |meetup| %>
+    <% @simplified_meetup_hash.shuffle.first(5).each do |meetup| %>
     <li>
       <%= meetup["group"]["name"] %>
       <%= meetup["group"]["who"] %>
