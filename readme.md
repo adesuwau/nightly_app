@@ -29,7 +29,7 @@ APIs-
 
 **Instagram**: Photos depicting nightlife in your city in real time.
 
-**Meetup**: *Coming Soon*
+**Meetup**: Added 9/11/14
 
 Languages-
 
