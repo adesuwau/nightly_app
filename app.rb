@@ -21,7 +21,7 @@ class App < Sinatra::Base
     enable :sessions
     GITHUB_CLIENT_ID     = "6b7eb4b33d119b28399c"
     GITHUB_CLIENT_SECRET = "4c1a5e68069ccff83c6cf62f7e206fad59009f23"
-    GITHUB_CALLBACK_URL  = "http://127.0.0.1:9292/oauth_callback"
+    GITHUB_CALLBACK_URL  = "http://frozen-crag-8244.herokuapp.com/oauth_callback"
     WEATHERUG_KEY        = "1c6c34e969b99131"
     uri = URI.parse(ENV["REDISTOGO_URL"])
     $redis = Redis.new({:host => uri.host,
