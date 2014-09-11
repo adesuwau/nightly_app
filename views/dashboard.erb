@@ -124,10 +124,12 @@
   <ul>
     <% @simplified_meetup_hash.shuffle.first(5).each do |meetup| %>
     <li>
-      <%= meetup["group"]["name"] %>
-      <%= meetup["group"]["who"] %>
-      <%= meetup["name"] %>
-      <%= meetup["description"] %>
+      <p>
+        <%= meetup["group"]["name"] %>
+        <%= meetup["group"]["who"] %>
+        <%= meetup["name"] %>
+        <%= meetup["description"] %>
+      </p>
     </li>
     <% end %>
   </ul>
