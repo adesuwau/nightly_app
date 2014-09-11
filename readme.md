@@ -10,7 +10,6 @@ Developed by: *Adesuwa Ugbogbo*
 
 <img width= 600px src="http://i57.tinypic.com/e6dt3s.png">
 <img width= 600px src="http://i57.tinypic.com/1z2fuc9.png">
-<img width= 600px src="http://i60.tinypic.com/14w9m3n.png">
 
 
 ##Tech Used:
