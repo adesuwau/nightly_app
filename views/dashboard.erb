@@ -118,6 +118,20 @@
 </div>
 <% end %>
 
+<% if @user["meetup"] %>
+<div id="seven">
+  <article>Meetup.</article>
+  <ul>
+    <% @simplified_meetup_hash.sample.first(5).each do |meetup| %>
+    <li>
+      <%= meetup["group"]["name"] %>
+      <%= meetup["group"]["who"] %>
+      <%= meetup["name"] %>
+      <%= meetup["description"] %>
+    </li>
+  </ul>
+<% end %>
+
 </body>
 
 <footer>

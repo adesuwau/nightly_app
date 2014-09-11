@@ -23,6 +23,7 @@ class App < Sinatra::Base
     GITHUB_CLIENT_SECRET = ENV['GITHUB_CLIENT_SECRET']
     GITHUB_CALLBACK_URL  = "http://frozen-crag-8244.herokuapp.com/oauth_callback"
     WEATHERUG_KEY        = ENV['WUNDERGROUND_API_KEY']
+    MEETUP_KEY           = ENV['MEETUP_API_KEY']
     uri = URI.parse(ENV["REDISTOGO_URL"])
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
@@ -137,6 +138,14 @@ end
     end
 
 @ig_flicks = HTTParty.get("https://api.instagram.com/v1/media/popular?access_token=#{session['access_token']}")
+##############
+# Meetup
+##############
+@user_zip = @user["user_zip"]
+
+@meetup_hash = HTTParty.get("https://api.meetup.com/2/open_events.xml?zip=#{@user_zip}&time=-1d,&amp;status=past&key=2e6b257ac3c1e471c4f1f2756a373f")
+
+@simplified_meetup_hash = @meetup_hash["results"]["items"]["item"]
 
   render(:erb, :dashboard, :template =>:layout)
 end
@@ -159,6 +168,7 @@ post("/profile/new") do
     :email        => params[:user_email],
     :user_city    => params[:user_city],
     :user_state   => params[:user_state],
+    :user_zip     => params[:user_zip],
     :user_drinks? => params[:user_drinks],
     :fandango     => params[:fandango],
     :yelp         => params[:yelp],
