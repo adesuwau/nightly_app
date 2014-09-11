@@ -170,7 +170,7 @@ post("/profile/new") do
     :user_state   => params[:user_state],
     :user_zip     => params[:user_zip],
     :user_drinks? => params[:user_drinks],
-    :fandango     => params[:fandango],
+    :meetup       => params[:meetup],
     :yelp         => params[:yelp],
     :NYTE         => params[:nyte],
     :NYTMR        => params[:nytmr],
