@@ -141,7 +141,7 @@ end
 ##############
 # Meetup
 ##############
-@user_zip = @user["user_zip"]
+@user_zip = @user["user_zip"].to_i
 
 @meetup_hash = HTTParty.get("https://api.meetup.com/2/open_events.xml?zip=#{@user_zip}&time=-1d,&amp;status=past&key=#{MEETUP_KEY}")
 
