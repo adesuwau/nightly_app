@@ -22,7 +22,7 @@ class App < Sinatra::Base
     GITHUB_CLIENT_ID     = ENV['GITHUB_CLIENT_ID']
     GITHUB_CLIENT_SECRET = ENV['GITHUB_CLIENT_SECRET']
     GITHUB_CALLBACK_URL  = "http://frozen-crag-8244.herokuapp.com/oauth_callback"
-    WEATHERUG_KEY        = "1c6c34e969b99131"
+    WEATHERUG_KEY        = ENV['WUNDERGROUND_API_KEY']
     uri = URI.parse(ENV["REDISTOGO_URL"])
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
