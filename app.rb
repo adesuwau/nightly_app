@@ -99,10 +99,10 @@ get("/feeds")do
       @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
-###############
-# Yelp
-###############
-@yelp_city = @user_city
+  ###############
+  # Yelp
+  ###############
+      @yelp_city = @user_city
       @client = Yelp::Client.new({ consumer_key: ENV['YELP_CONSUMER_KEY'],
                             consumer_secret: ENV['YELP_CONSUMER_SECRET'],
                             token: ENV['YELP_TOKEN'],
@@ -111,22 +111,20 @@ get("/feeds")do
       @ny_yelp = @client.search("#{@yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
-#######################
-# NYTimes Movie Reviews
-#######################
-@reviews = HTTParty.get("http://api.nytimes.com/svc/movies/v2/reviews/search.json?critics-pick=Y&api-key=1e0225a5429d17924a7526f4a9454f9c:10:69766004")
-@simplified_reviews = @reviews["results"]
-##############
-# Twitter
-##############
-@twitter_city = @user_city
-@twitter_client              = Twitter::REST::Client.new do |config|
-  config.consumer_key        = "VtC6Dir0O3m0tJudSs4gdlq12"
-  config.consumer_secret     = "DpF5SkcswnZxmfqlRYt4z3Mp3e7zJfPYVYDHpggNAeItEw0HbF"
-  # config.access_token        = "172149629-E0uBw812dgzlkN8JT9NwKfCwnlbYg6YnJeuWlfdk"
-  # config.access_token_secret = "4Cs54fbL6RRXv4Vv0E7I8tV6xYxc7tCpGO3v1gzPcb23w"
-end
-@tweets = @twitter_client.search("nightlife, #{@twitter_city}", :result_type => "recent").take(5).collect do |tweet|
+  #######################
+  # NYTimes Movie Reviews
+  #######################
+    @reviews = HTTParty.get("http://api.nytimes.com/svc/movies/v2/reviews/search.json?critics-pick=Y&api-key=1e0225a5429d17924a7526f4a9454f9c:10:69766004")
+    @simplified_reviews = @reviews["results"]
+  ##############
+  # Twitter
+  ##############
+    @twitter_city = @user_city
+    @twitter_client              = Twitter::REST::Client.new do |config|
+    config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+    config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+    end
+    @tweets = @twitter_client.search("nightlife, #{@twitter_city}", :result_type => "recent").take(5).collect do |tweet|
       {content: "#{tweet.user.screen_name}: #{tweet.text}", url: "#{tweet.url}"}
     end
 ###############
