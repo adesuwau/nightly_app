@@ -96,18 +96,18 @@ get("/feeds")do
   #####################
     @city = @user_city.to_s.gsub(" ", "_")
     @state = @user_state
-      @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
+    @hourly_temperature = HTTParty.get("http://api.wunderground.com/api/#{WEATHERUG_KEY}/hourly/q/#{@state}/#{@city}.json")
       first_time = @hourly_temperature["hourly_forecast"][0]["FCTTIME"]["civil"]
       first_temp = @hourly_temperature["hourly_forecast"][0]["temp"]["english"]
   ###############
   # Yelp
   ###############
-      @yelp_city = @user_city
-      @client = Yelp::Client.new({ consumer_key: ENV['YELP_CONSUMER_KEY'],
-                            consumer_secret: ENV['YELP_CONSUMER_SECRET'],
-                            token: ENV['YELP_TOKEN'],
-                            token_secret: ENV['YELP_TOKEN_SECRET'] })
-                            params = { term: 'restaurant'}
+    @yelp_city = @user_city
+    @client = Yelp::Client.new({ consumer_key: ENV['YELP_CONSUMER_KEY'],
+                                 consumer_secret: ENV['YELP_CONSUMER_SECRET'],
+                                 token: ENV['YELP_TOKEN'],
+                                 token_secret: ENV['YELP_TOKEN_SECRET'] })
+                                 params = { term: 'restaurant'}
       @ny_yelp = @client.search("#{@yelp_city}", params)
       @stringy_ny_yelp = @ny_yelp.to_json
       @parsed_ny_yelp = JSON.parse(@stringy_ny_yelp)
@@ -121,29 +121,27 @@ get("/feeds")do
   ##############
     @twitter_city = @user_city
     @twitter_client              = Twitter::REST::Client.new do |config|
-    config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-    config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+      config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
     end
     @tweets = @twitter_client.search("nightlife, #{@twitter_city}", :result_type => "recent").take(5).collect do |tweet|
       {content: "#{tweet.user.screen_name}: #{tweet.text}", url: "#{tweet.url}"}
     end
-###############
-# Instagram
-###############
+  ###############
+  # Instagram
+  ###############
     Instagram.configure do |config|
       config.client_id = ENV['INSTAGRAM_CLIENT_ID']
       config.client_secret = ENV['INSTAGRAM_CLIENT_SECRET']
     end
 
 @ig_flicks = HTTParty.get("https://api.instagram.com/v1/media/popular?access_token=#{session['access_token']}")
-##############
-# Meetup
-##############
-@user_zip = @user["user_zip"].to_i
-
-@meetup_hash = HTTParty.get("https://api.meetup.com/2/open_events.xml?zip=#{@user_zip}&time=-1d,&amp;status=past&key=#{MEETUP_KEY}")
-
-@simplified_meetup_hash = @meetup_hash["results"]["items"]["item"]
+  ##############
+  # Meetup
+  ##############
+    @user_zip = @user["user_zip"].to_i
+    @meetup_hash = HTTParty.get("https://api.meetup.com/2/open_events.xml?zip=#{@user_zip}&time=-1d,&amp;status=past&key=#{MEETUP_KEY}")
+    @simplified_meetup_hash = @meetup_hash["results"]["items"]["item"]
 
   render(:erb, :dashboard, :template =>:layout)
 end
